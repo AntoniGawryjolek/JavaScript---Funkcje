@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Zadania JavaScript - Pętle</title>
+    <style>
+        body {
+            background-color: #f5eeff;
+            color: #2b1b3d;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #wyniki {
+            background-color: #ffffff;
+            border: 2px solid #d4bfff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(100, 50, 150, 0.1);
+        }
+        p { margin: 5px 0; border-bottom: 1px solid #f0e6ff; padding-bottom: 5px; }
+        h3 { color: #5e35b1; margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+<div id="wyniki">
+    <h2 style="color: #4527a0;">Wyniki:</h2>
+</div>
+
+<script>
+    const box = document.getElementById('wyniki');
+    function pisz(tekst) {
+        box.innerHTML += '<p>' + tekst + '</p>';
+    }
+
+    pisz('<h3>--- Zadania 1 do 5 ---</h3>');
+    
+    let tab1 = [7, 3, 1, 6, 9, 5, 4, 10, 2, 2];
+    pisz('5. komórka: ' + tab1[4]);
+    
+    tab1[6] = 12;
+
+    let tab2 = [];
+    for(let i = 0; i < tab1.length; i++) {
+        tab2[i] = tab1[i];
+    }
+
+    let tab3 = [];
+    for(let i = 0; i < tab1.length; i++) {
+        tab3[i] = tab1[i] + tab2[i];
+    }
+
+    let j = 0;
+    for(let i = tab1.length - 1; i >= 0; i--) {
+        tab2[j] = tab1[i];
+        j++;
+    }
+    pisz('Tab2 od tyłu: ' + tab2.join(', '));
+
+
+    pisz('<h3>--- Operacje na tablicy (użytkownik) ---</h3>');
+    
+   
+    let daneOdUsera = [6, 7, 3, 1, 9, 3, 18, 8, 3, 2]; 
+    
+    let min = daneOdUsera[0];
+    let max = daneOdUsera[0];
+    let suma = 0;
+    let ilosc3 = 0;
+    let parzyste = 0;
+    let nieparzyste = 0;
+    let podzielnePrzez3 = 0;
+
+    for(let i = 0; i < daneOdUsera.length; i++) {
+        if(daneOdUsera[i] < min) min = daneOdUsera[i];
+        if(daneOdUsera[i] > max) max = daneOdUsera[i];
+        suma += daneOdUsera[i];
+        if(daneOdUsera[i] === 3) ilosc3++;
+        if(daneOdUsera[i] % 2 === 0) parzyste++;
+        else nieparzyste++;
+        if(daneOdUsera[i] % 3 === 0) podzielnePrzez3++;
+    }
+
+    let srednia = suma / daneOdUsera.length;
+
+    for(let i = 0; i < daneOdUsera.length; i++) {
+        for(let k = 0; k < daneOdUsera.length - 1; k++) {
+            if(daneOdUsera[k] > daneOdUsera[k+1]) {
+                let temp = daneOdUsera[k];
+                daneOdUsera[k] = daneOdUsera[k+1];
+                daneOdUsera[k+1] = temp;
+            }
+        }
+    }
+
+    let srodek = Math.floor(daneOdUsera.length / 2);
+    let mediana = daneOdUsera.length % 2 !== 0 ? daneOdUsera[srodek] : (daneOdUsera[srodek - 1] + daneOdUsera[srodek]) / 2;
+
+    let kwadraty = [];
+    for(let i = 0; i < daneOdUsera.length; i++) {
+        kwadraty.push(daneOdUsera[i] * daneOdUsera[i]);
+    }
+
+    pisz('Min: ' + min + ', Max: ' + max);
+    pisz('Średnia: ' + srednia);
+    pisz('Ilość 3: ' + ilosc3);
+    pisz('Posortowane: ' + daneOdUsera.join(', '));
+    pisz('Mediana: ' + mediana);
+    pisz('3 najmniejsze: ' + daneOdUsera[0] + ', ' + daneOdUsera[1] + ', ' + daneOdUsera[2]);
+    pisz('3 największe: ' + daneOdUsera[daneOdUsera.length-1] + ', ' + daneOdUsera[daneOdUsera.length-2] + ', ' + daneOdUsera[daneOdUsera.length-3]);
+    pisz('Kwadraty: ' + kwadraty.join(', '));
+    pisz('Parzyste: ' + parzyste + ', Nieparzyste: ' + nieparzyste);
+    pisz('Podzielne przez 3: ' + podzielnePrzez3);
+
+
+    pisz('<h3>--- Tablica 10 elementów (litery/wyraz) ---</h3>');
+    
+    let slowo = "pROgRaMiSTa"; 
+    
+    let litery = [];
+    for(let i = 0; i < slowo.length; i++) {
+        litery.push(slowo[i]);
+    }
+
+    let zamienione = [];
+    for(let i = 0; i < litery.length; i++) {
+        if(litery[i] >= 'A' && litery[i] <= 'Z') {
+            zamienione.push(litery[i].toLowerCase());
+        } else {
+            zamienione.push(litery[i].toUpperCase());
+        }
+    }
+    
+    let losowa = [...zamienione];
+    for (let i = losowa.length - 1; i > 0; i--) {
+        let rand = Math.floor(Math.random() * (i + 1));
+        let temp = losowa[i];
+        losowa[i] = losowa[rand];
+        losowa[rand] = temp;
+    }
+
+    pisz('Zamienione litery: ' + zamienione.join(''));
+    pisz('Losowa kolejność: ' + losowa.join(''));
+
+
+    pisz('<h3>--- 100-elementowa tablica losowa ---</h3>');
+    let A = [];
+    for(let i = 0; i < 100; i++) {
+        A.push(Math.floor(Math.random() * 50) + 1);
+    }
+
+    let najwieksza = A[0];
+    let ileRazyNajwieksza = 0;
+    for(let i = 0; i < A.length; i++) {
+        if(A[i] > najwieksza) {
+            najwieksza = A[i];
+            ileRazyNajwieksza = 1;
+        } else if(A[i] === najwieksza) {
+            ileRazyNajwieksza++;
+        }
+    }
+    pisz('Największa: ' + najwieksza + ' (wystąpiła ' + ileRazyNajwieksza + ' razy)');
+
+    let nieparzZLosowych = [];
+    for(let i = 0; i < A.length; i++) {
+        if(A[i] % 2 !== 0) nieparzZLosowych.push(A[i]);
+    }
+
+    let przedzial = [];
+    for(let i = 0; i < A.length; i++) {
+        if(A[i] >= 5 && A[i] < 15) przedzial.push(A[i]);
+    }
+    pisz('Liczb w przedziale <5, 15) jest: ' + przedzial.length);
+
+    let a = 25; 
+    let najblizsza = A[0];
+    for(let i = 1; i < A.length; i++) {
+        if(Math.abs(A[i] - a) < Math.abs(najblizsza - a)) {
+            najblizsza = A[i];
+        }
+    }
+    pisz('Najbliższa liczbie ' + a + ' jest ' + najblizsza);
+
+    let min100 = A[0];
+    let minIndeks = 0;
+    for(let i = 1; i < A.length; i++) {
+        if(A[i] < min100) {
+            min100 = A[i];
+            minIndeks = i;
+        }
+    }
+    let poprz = (minIndeks > 0) ? A[minIndeks - 1] : "brak";
+    let nast = (minIndeks < A.length - 1) ? A[minIndeks + 1] : "brak";
+    pisz('Poprzednik minimum: ' + poprz + ', Następnik: ' + nast);
+
+    let wiekszeNiz10 = [];
+    for(let i = 0; i < A.length; i++) {
+        if(A[i] > 10) wiekszeNiz10.push(A[i]);
+    }
+
+    let B = [];
+    let aktualnaSuma = 0;
+    for(let i = 0; i < A.length; i++) {
+        aktualnaSuma += A[i];
+        B.push(aktualnaSuma);
+    }
+
+    for(let i = 0; i < A.length; i++) {
+        for(let k = 0; k < A.length - 1; k++) {
+            if(A[k] < A[k+1]) {
+                let temp = A[k];
+                A[k] = A[k+1];
+                A[k+1] = temp;
+            }
+        }
+    }
+
+    pisz('<h3>--- Ciągi liczb (po 100 elementów) ---</h3>');
+    let tabFib = [0, 1];
+    for(let i = 2; i < 100; i++) {
+        tabFib[i] = tabFib[i-1] + tabFib[i-2];
+    }
+    
+    let tabPotegi2 = [];
+    for(let i = 0; i < 100; i++) {
+        let potega = 1;
+        for(let j = 0; j < i; j++) potega *= 2;
+        tabPotegi2.push(potega);
+    }
+
+    let tabCo3 = [];
+    for(let i = 1; i <= 100; i++) {
+        tabCo3.push(i * 3);
+    }
+
+    let tabPotegiOd2 = [];
+    let pot2 = 2;
+    for(let i = 0; i < 100; i++) {
+        tabPotegiOd2.push(pot2);
+        pot2 *= 2;
+    }
+
+    pisz('Początek ciągu 3, 6, 9... : ' + tabCo3[0] + ', ' + tabCo3[1] + ', ' + tabCo3[2] + ', ' + tabCo3[3]);
+</script>
+
+</body>
+</html>
